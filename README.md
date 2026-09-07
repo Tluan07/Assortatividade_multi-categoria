@@ -16,7 +16,7 @@ assortatividade multi-categoria ($r$) em diferentes tipos de rede.
 
 ## Como usar
 
-Cada script roda sozinho, direto da pasta principal:
+Cada script pode ser executado sem depender dos outros scripts de aplicação — mas todos importam funções de `assortatividade.py`, que precisa estar na mesma pasta. Direto da pasta principal:
 
 ```bash
 python deezer_analise.py
