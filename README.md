@@ -1,2 +1,4 @@
-# Assortatividade_multi-categoria
-Análise e cálculo de assortatividade em redes complexas para nós com múltiplas categorias e pertença fuzzy.
+# Repositório de códigos — Dissertação de Mestrado
+### Índice de Assortatividade Multi-Categoria
+
+## 📁 Estrutura do Projeto
