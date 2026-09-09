@@ -1,1 +1,12 @@
+Os scripts desta pasta (câmara dos deputados) ainda NÃO estão prontos
+e NÃO fazem parte do Apêndice A da dissertação (que lista apenas os
+6 arquivos da pasta principal).
+
+camara_diagnostico.py     — Parte 1/2: diagnóstico de votações válidas
+                             por ano/mandato e gráfico de percentis
+                             (50/75) de Favor/Contra.
+camara_assortatividade.py — Parte 3: assortatividade fuzzy por mandato
+                             (Governo/Oposição/Centrão), com teste de
+                             permutação (10.000 embaralhamentos) para
+                             significância estatística.
 
