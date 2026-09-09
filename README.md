@@ -16,7 +16,7 @@ assortatividade multi-categoria ($r$) em diferentes tipos de rede.
 
 ## Como usar
 
-Cada script pode ser executado sem depender dos outros scripts de aplicação — mas todos importam funções de `assortatividade.py`, que precisa estar na mesma pasta. Direto da pasta principal:
+Cada script roda sozinho, direto da pasta principal:
 
 ```bash
 python deezer_analise.py
@@ -33,7 +33,12 @@ python cocitacao_fuzzy.py
 
 ## Dados
 
-Os scripts de coautoria e cocitação usam dados exportados da
-[Web of Science](https://www.webofscience.com). O script do Deezer
-usa dados públicos disponíveis em
-[snap.stanford.edu/data/gemsec-Deezer.html](https://snap.stanford.edu/data/gemsec-Deezer.html).
+O `deezer_analise.py` **baixa os dados automaticamente** na primeira
+execução (dataset público do SNAP/GEMSEC, sem login). Não precisa baixar
+nada manualmente.
+
+Os scripts de coautoria e cocitação usam dados da Web of Science, obtidos
+por acesso institucional (CAFe) e protegidos por termos de uso que proíbem
+redistribuição pública — por isso **não há download automático** para
+esses dois. É preciso ter acesso próprio à Web of Science e refazer a
+mesma busca (documentada na dissertação) para gerar os arquivos esperados.
