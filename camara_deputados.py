@@ -18,7 +18,7 @@ proposicoesAutores-{ano}.xlsx em PASTA (ver README.txt). Também requer
 pandas e openpyxl, usados apenas por este script.
 """
 
-import os, math, random, statistics
+import os, math, random, statistics, zipfile, urllib.request
 from collections import defaultdict
 from itertools import combinations
 import pandas as pd
@@ -26,9 +26,28 @@ import networkx as nx
 
 from assortatividade import calcular_r
 
-PASTA      = '/content/sample_data/camara_deputados'
-N_AMOSTRAS = 10_000
-SEMENTE    = 42
+PASTA        = './dados/camara'
+URL_RELEASE  = 'https://github.com/Tluan07/Assortatividade_multi-categoria/releases/download/v1.0/dados_camara.zip'
+N_AMOSTRAS   = 10_000
+SEMENTE      = 42
+
+def baixar_e_extrair_dados(pasta=PASTA, url=URL_RELEASE):
+    os.makedirs(pasta, exist_ok=True)
+    caminho_zip = os.path.join(pasta, 'dados_camara.zip')
+    
+    ja_baixado = any(nome.startswith('votacoesVotos') for nome in os.listdir(pasta)) if os.path.exists(pasta) else False
+    
+    if not ja_baixado:
+        print(f"Baixando dados da Câmara de {url} ...")
+        urllib.request.urlretrieve(url, caminho_zip)
+        print("Extraindo arquivos ZIP...")
+        with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+            zip_ref.extractall(pasta)
+        if os.path.exists(caminho_zip):
+            os.remove(caminho_zip)
+        print("Dados da Câmara prontos em:", pasta)
+
+baixar_e_extrair_dados()
 
 # Blocos de mandato. 2016 fica isolado por ser o ano de transição do
 # impeachment — nem colado em 2015 (Dilma) nem em 2017-2018 (Temer).
