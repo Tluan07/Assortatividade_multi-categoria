@@ -14,15 +14,45 @@ Requer: assortatividade.py no mesmo diretório, e os dados brutos da WoS
 em CAMINHO_BASE (ver README.txt).
 """
 
-import os, re, math, random, statistics
+import os, re, math, random, statistics, zipfile, urllib.request, shutil
 import networkx as nx
 
 from assortatividade import s_min, s_max, s_jaccard, s_dir, calcular_r
 
-CAMINHO_BASE = '/content/sample_data/'
+CAMINHO_BASE = './dados'
+
+URLS_DATASETS = {
+    'hist_of_prob': 'https://github.com/Tluan07/Assortatividade_multi-categoria/releases/download/v1.0/dados_hist_of_prob.zip',
+    'cryptography': 'https://github.com/Tluan07/Assortatividade_multi-categoria/releases/download/v1.0/dados_cryptography.zip'
+}
+
+def garantir_dados():
+    for nome, url in URLS_DATASETS.items():
+        pasta_destino = os.path.join(CAMINHO_BASE, nome)
+        os.makedirs(pasta_destino, exist_ok=True)
+        
+        ja_baixado = len([f for f in os.listdir(pasta_destino) if not f.startswith('.')]) > 0
+        if not ja_baixado:
+            caminho_zip = os.path.join(pasta_destino, f'{nome}.zip')
+            print(f"Baixando dataset '{nome}'...")
+            urllib.request.urlretrieve(url, caminho_zip)
+            print(f"Extraindo '{nome}'...")
+            with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                zip_ref.extractall(pasta_destino)
+            if os.path.exists(caminho_zip):
+                os.remove(caminho_zip)
+            for item in os.listdir(pasta_destino):
+                subpasta = os.path.join(pasta_destino, item)
+                if os.path.isdir(subpasta):
+                    for f in os.listdir(subpasta):
+                        shutil.move(os.path.join(subpasta, f), os.path.join(pasta_destino, f))
+                    os.rmdir(subpasta)
+
+garantir_dados()
+
 TOPICOS = {
-    'History of Probability': os.path.join(CAMINHO_BASE, 'hist_of_prob'),
-    'Cryptography':           os.path.join(CAMINHO_BASE, 'cryptography'),
+    'History of Probability' : os.path.join(CAMINHO_BASE, 'hist_of_prob'),
+    'Cryptography'           : os.path.join(CAMINHO_BASE, 'cryptography'),
 }
 N_AMOSTRAS = 10_000
 SEMENTE    = 42
