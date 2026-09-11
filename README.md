@@ -13,7 +13,7 @@ assortatividade multi-categoria ($r$) em diferentes tipos de rede.
 | `coautoria_crisp_com_peso.py` | Mesma rede de coautoria, agora com peso pela recência da colaboração.                                             |
 | `cocitacao_crisp.py`          | Aplica o índice a uma rede de cocitação.                                                                          |
 | `cocitacao_fuzzy.py`          | Mesma rede de cocitação, com categorias fuzzy.                                                                    |
-| `camara_deputados.py`         | Aplica o índice fuzzy à Câmara dos Deputados, por mandato — alinhamento político (Governo/Oposição/Centrão) x rede de coautoria de proposições legislativas. |
+| `camara_deputados.py`         | Aplica o índice fuzzy à Câmara dos Deputados, por mandato — alinhamento político (Governo/Oposição/Centrão).
 
 ## Como usar
 
