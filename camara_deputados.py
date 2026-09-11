@@ -18,7 +18,7 @@ proposicoesAutores-{ano}.xlsx em PASTA (ver README.txt). Também requer
 pandas e openpyxl, usados apenas por este script.
 """
 
-import os, math, random, statistics, zipfile, urllib.request
+import os, math, random, statistics, zipfile, urllib.request, shutil
 from collections import defaultdict
 from itertools import combinations
 import pandas as pd
@@ -26,6 +26,7 @@ import networkx as nx
 
 from assortatividade import calcular_r
 
+# Caminhos e URL do release do GitHub
 PASTA        = './dados/camara'
 URL_RELEASE  = 'https://github.com/Tluan07/Assortatividade_multi-categoria/releases/download/v1.0/dados_camara.zip'
 N_AMOSTRAS   = 10_000
@@ -35,7 +36,8 @@ def baixar_e_extrair_dados(pasta=PASTA, url=URL_RELEASE):
     os.makedirs(pasta, exist_ok=True)
     caminho_zip = os.path.join(pasta, 'dados_camara.zip')
     
-    ja_baixado = any(nome.startswith('votacoesVotos') for nome in os.listdir(pasta)) if os.path.exists(pasta) else False
+    # Verifica se já existem os arquivos .xlsx diretamente na pasta
+    ja_baixado = any(nome.startswith('proposicoesAutores') and nome.endswith('.xlsx') for nome in os.listdir(pasta))
     
     if not ja_baixado:
         print(f"Baixando dados da Câmara de {url} ...")
@@ -45,10 +47,18 @@ def baixar_e_extrair_dados(pasta=PASTA, url=URL_RELEASE):
             zip_ref.extractall(pasta)
         if os.path.exists(caminho_zip):
             os.remove(caminho_zip)
+
+        # Move os arquivos caso tenham sido extraídos dentro de uma subpasta (ex: ./dados/camara/dados_camara/...)
+        for item in os.listdir(pasta):
+            subpasta = os.path.join(pasta, item)
+            if os.path.isdir(subpasta):
+                for f in os.listdir(subpasta):
+                    shutil.move(os.path.join(subpasta, f), os.path.join(pasta, f))
+                os.rmdir(subpasta)
+
         print("Dados da Câmara prontos em:", pasta)
 
 baixar_e_extrair_dados()
-
 # Blocos de mandato. 2016 fica isolado por ser o ano de transição do
 # impeachment — nem colado em 2015 (Dilma) nem em 2017-2018 (Temer).
 MANDATOS = {
