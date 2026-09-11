@@ -16,7 +16,7 @@ import networkx as nx
 
 from assortatividade import calcular_r
 
-CAMINHO_BASE = './dados/wos'
+CAMINHO_BASE = '/content/sample_data/'
 TOPICOS = {
     'History of Probability': os.path.join(CAMINHO_BASE, 'hist_of_prob'),
     'Cryptography':           os.path.join(CAMINHO_BASE, 'cryptography'),
