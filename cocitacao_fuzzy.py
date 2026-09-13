@@ -19,7 +19,7 @@ from assortatividade import calcular_r
 CAMINHO_BASE = './dados'
 
 URLS_DATASETS = {
-    'hist_of_prob': 'url?id=3/releases/download/v1.0/dados_hist_of_prob.zip',
+    'hist_of_prob': 'https://github.com/Tluan07/Assortatividade_multi-categoria/releases/download/v1.0/dados_hist_of_prob.zip',
     'cryptography': 'https://github.com/Tluan07/Assortatividade_multi-categoria/releases/download/v1.0/dados_cryptography.zip'
 }
 
