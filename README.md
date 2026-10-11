@@ -39,8 +39,6 @@ funções de similaridade e `calcular_r`.
 - `pandas` e `openpyxl` (`pip install pandas openpyxl`) — usados apenas
   por `camara_deputados.py`, para ler os arquivos `.xlsx` da Câmara
 
-Tudo pode ser instalado com `pip install -r requirements.txt`.
-
 ## Dados
 
 Ao rodar um script, os dados necessários são baixados automaticamente para
