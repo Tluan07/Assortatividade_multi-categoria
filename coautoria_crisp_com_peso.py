@@ -263,7 +263,7 @@ def analisar_topico(nome, pasta):
 
 
 if __name__ == '__main__':
-        garantir_dados()
+    garantir_dados()
     todos = {}
     for nome, pasta in TOPICOS.items():
         try:
