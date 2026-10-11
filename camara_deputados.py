@@ -27,7 +27,7 @@ número de proposições assinadas em comum e um corte de outliers
 (percentil 99 de autores/proposição) calculado uma única vez sobre toda
 a base 2003-2025.
 
-Referência: Seção 4.2.6 da dissertação.
+Referência: Seção 4.3.2 da dissertação.
 Requer: assortatividade.py no mesmo diretório, e os arquivos
 votacoesVotos-{ano}.xlsx / votacoesOrientacoes-{ano}.xlsx /
 proposicoesAutores-{ano}.xlsx em PASTA (baixados automaticamente do
