@@ -92,8 +92,6 @@ def baixar_e_extrair_dados(pasta=PASTA, url=URL_RELEASE):
 
         print("Dados da Câmara prontos em:", pasta)
 
-baixar_e_extrair_dados()
-
 # Blocos de mandato. 2016 fica isolado por ser o ano de transição do
 # impeachment — nem colado em 2015 (Dilma) nem em 2017-2018 (Temer).
 MANDATOS = {
