@@ -32,9 +32,12 @@ def s_dir(xi, xj):
 
 # -- Índice de assortatividade multi-categoria ---------------------------
 def calcular_r(S_obs, S_esp, dp, n):
-    """r = (S_obs - S_esp) / dp  |  IC 95%: r ± 1.96/√n"""
-    if dp <= 0:
-        return 0.0, 0.0, 0.0
-    r = (S_obs - S_esp) / dp
+    """r = (S_obs - S_esp) / dp  |  IC 95%: r ± 1.96/√n
+    (n = nº de amostras de Monte Carlo; o intervalo reflete só o erro da
+    estimativa de S_esp). Convenção: se dp <= 0, r = 0 (Eq. do índice na
+    dissertação); o IC continua sendo ± 1.96/√n."""
     m = 1.96 / math.sqrt(n)
+    if dp <= 0:
+        return 0.0, -m, m
+    r = (S_obs - S_esp) / dp
     return r, r - m, r + m
