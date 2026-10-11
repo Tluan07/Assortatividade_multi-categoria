@@ -11,9 +11,9 @@ granularidade de gêneros musicais:
 Estimação de S_esp por Monte Carlo (N = 10.000 amostras) e intervalos
 de confiança de 95%, para cada nível, em cada país.
 
-Referência: Seção 4.2.4 da dissertação.
+Referência: Seção 3.4.1 da dissertação.
 Requer: assortatividade.py no mesmo diretório, e os arquivos
-<PAIS>_edges.csv / <PAIS>_genres.json em DATA_DIR (ver README.txt).
+<PAIS>_edges.csv / <PAIS>_genres.json em DATA_DIR (baixados automaticamente; ver README.md).
 """
 
 import os, json, csv, math, random, statistics, tarfile, urllib.request
@@ -47,7 +47,10 @@ def baixar_dados_deezer(pasta=DATA_DIR):
 
     print("Extraindo...")
     with tarfile.open(caminho_tar) as tar:
-        tar.extractall(pasta)
+        try:
+            tar.extractall(pasta, filter='data')   # Python >= 3.12
+        except TypeError:
+            tar.extractall(pasta)
     os.remove(caminho_tar)
 
     # O tar.gz extrai numa subpasta própria; move os arquivos para `pasta`
