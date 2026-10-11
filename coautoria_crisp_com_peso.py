@@ -207,11 +207,13 @@ def estimar_s_esp(G, attrs, func, n=N_AMOSTRAS):
     nos    = [no for no in G.nodes() if no in attrs]
     forcas = [sum(d.get('peso', 1) for _, _, d in G.edges(no, data=True)) for no in nos]
     cats   = [attrs[no] for no in nos]
+       # soma acumulada calculada uma vez (mesmo resultado de weights=..., sem refazê-la a cada sorteio)
+    acum = list(accumulate(forcas)); indices = range(len(nos))
     amostras = []; tentativas = 0
     while len(amostras) < n and tentativas < n * 10:
         tentativas += 1
-        i = random.choices(range(len(nos)), weights=forcas)[0]
-        j = random.choices(range(len(nos)), weights=forcas)[0]
+        i = random.choices(indices, cum_weights=acum)[0]
+        j = random.choices(indices, cum_weights=acum)[0]
         if i != j:
             amostras.append((func(cats[i], cats[j]) + func(cats[j], cats[i])) / 2)
     if not amostras:
