@@ -350,6 +350,8 @@ def analisar_mandato(pasta, rotulo, anos, max_autores, attrs_todos):
 
 
 if __name__ == '__main__':
+    baixar_e_extrair_dados()
+
     # 1) limiares globais fixos (uma única régua para todos os mandatos)
     limiares, cache, n_total = calcular_limiares_globais(PASTA, MANDATOS)
     print(f"\nLimiares globais de diff = P_f - P_c  (n = {n_total:,} deputado-mandatos):")
