@@ -17,6 +17,7 @@ import os, math, random, statistics, zipfile, urllib.request, shutil
 from collections import defaultdict
 from itertools import combinations
 import networkx as nx
+from itertools import accumulate
 
 from assortatividade import calcular_r
 
