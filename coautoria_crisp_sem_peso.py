@@ -35,7 +35,9 @@ def garantir_dados():
         pasta_destino = os.path.join(CAMINHO_BASE, nome)
         os.makedirs(pasta_destino, exist_ok=True)
         
-        ja_baixado = len([f for f in os.listdir(pasta_destino) if not f.startswith('.')]) > 0
+        ja_baixado = any(f.endswith('.txt') for f in os.listdir(pasta_destino)) or any(
+        os.path.isdir(os.path.join(pasta_destino, d)) and any(x.endswith('.txt') for x in os.listdir(os.path.join(pasta_destino, d)))
+        for d in os.listdir(pasta_destino))
         if not ja_baixado:
             caminho_zip = os.path.join(pasta_destino, f'{nome}.zip')
             print(f"Baixando dataset '{nome}'...")
