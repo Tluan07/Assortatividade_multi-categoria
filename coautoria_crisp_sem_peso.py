@@ -2,7 +2,8 @@
 """
 coautoria_crisp_sem_peso.py
 
-Aplicação às redes de coautoria da UFC e ITBA — versão SEM peso (crisp):
+Aplicação às redes de coautoria da Web of Science (History of Probability e
+Cryptography) — versão SEM peso (crisp):
 toda colaboração entra com peso 1, independentemente de quando ocorreu.
 Leitura de dados WoS, construção do grafo de coautorias, extração de
 áreas de pesquisa e cálculo dos índices sem peso.
@@ -10,9 +11,9 @@ Leitura de dados WoS, construção do grafo de coautorias, extração de
 Ver também: coautoria_crisp_com_peso.py (mesma base de dados, mas com
 peso pelo tercil de recência da colaboração).
 
-Referência: Seção 4.2.5 da dissertação.
+Referência: Seção 3.4.2 da dissertação.
 Requer: assortatividade.py no mesmo diretório, e os dados brutos da WoS
-em CAMINHO_BASE (ver README.txt).
+em CAMINHO_BASE (baixados automaticamente; ver README.md).
 """
 
 import os, math, random, statistics, zipfile, urllib.request, shutil
