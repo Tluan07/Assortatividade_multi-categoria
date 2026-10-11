@@ -6,9 +6,9 @@ Aplicação à rede de citações da Web of Science. Leitura dos arquivos WoS,
 construção do grafo dirigido, cálculo das pertinências fuzzy
 (Curto/Médio/Longo, com base no número de páginas) e do índice r fuzzy.
 
-Referência: Seção 4.2.3 da dissertação.
+Referência: Seção 4.3.1 da dissertação.
 Requer: assortatividade.py no mesmo diretório, e os dados brutos da WoS
-em CAMINHO_BASE (ver README.txt).
+em CAMINHO_BASE (baixados automaticamente; ver README.md).
 """
 
 import os, re, math, random, statistics, zipfile, urllib.request, shutil
