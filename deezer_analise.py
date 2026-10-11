@@ -18,6 +18,7 @@ Requer: assortatividade.py no mesmo diretório, e os arquivos
 
 import os, json, csv, math, random, statistics, tarfile, urllib.request
 import networkx as nx
+from itertools import accumulate
 
 from assortatividade import s_min, s_max, s_jaccard, s_dir, calcular_r
 
