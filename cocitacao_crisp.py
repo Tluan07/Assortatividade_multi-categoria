@@ -9,9 +9,9 @@ sem pertinência fuzzy.
 Ver também: cocitacao_fuzzy.py (mesma base de dados, mas com categorias
 fuzzy Curto/Médio/Longo baseadas no número de páginas).
 
-Referência: Seção 4.2.3 da dissertação.
+Referência: Seção 3.4.2 da dissertação.
 Requer: assortatividade.py no mesmo diretório, e os dados brutos da WoS
-em CAMINHO_BASE (ver README.txt).
+em CAMINHO_BASE (baixados automaticamente; ver README.md).
 """
 
 import os, re, math, random, statistics, zipfile, urllib.request, shutil
