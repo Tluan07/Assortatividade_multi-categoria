@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-coautoria_ufc_itba.py
+coautoria_crisp_com_peso.py
 
-Aplicação às redes de coautoria da UFC e ITBA. Leitura de dados WoS,
-construção do grafo ponderado de coautorias (peso = tercil de recência
-da colaboração: 1 = mais antigo, 3 = mais recente), extração de áreas
+Aplicação às redes de coautoria da Web of Science (History of Probability e
+Cryptography). Leitura de dados WoS,
+construção do grafo ponderado de coautorias (peso = tercil do ano da
+colaboração mais recente do par: 1 = mais antigo, 3 = mais recente; pares
+sem ano conhecido ficam fora desta rede), extração de áreas
 de pesquisa e cálculo dos índices com peso.
-
-Referência: Seção 4.2.5 da dissertação.
+Referência: Seção 3.4.2 da dissertação.
 Requer: assortatividade.py no mesmo diretório, e os dados brutos da WoS
-em CAMINHO_BASE (ver README.txt).
+em CAMINHO_BASE (baixados automaticamente; ver README.md).
 """
 
 import os, math, random, statistics, zipfile, urllib.request, shutil
