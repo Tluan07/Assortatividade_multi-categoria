@@ -48,7 +48,6 @@ def garantir_dados():
                         shutil.move(os.path.join(subpasta, f), os.path.join(pasta_destino, f))
                     os.rmdir(subpasta)
 
-garantir_dados()
 
 TOPICOS = {
     'History of Probability' : os.path.join(CAMINHO_BASE, 'hist_of_prob'),
