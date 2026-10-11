@@ -55,8 +55,10 @@ SEMENTE      = 42
 
 # Participação mínima (fração das votações com orientação do governo em
 # que o deputado votou Sim/Não) para entrar na análise. 0.0 = sem filtro
-# (comportamento original). Um valor como 0.10 exclui suplentes de
-# passagem, cujo diff ≈ 0 por AUSÊNCIA seria lido como "Centrão".
+# (comportamento usado na dissertação). Um valor como 0.10 exclui suplentes
+# de passagem: com poucos votos, P_f e P_c ficam ≈ 0 por AUSÊNCIA, logo
+# diff ≈ 0, e como p20 ≈ 0,0099 > 0 esses deputados caem em Oposição plena
+# (não em Centrão).
 MIN_PARTICIPACAO = 0.0
 
 
