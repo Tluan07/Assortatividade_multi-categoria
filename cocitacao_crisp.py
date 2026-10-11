@@ -16,6 +16,7 @@ em CAMINHO_BASE (baixados automaticamente; ver README.md).
 
 import os, re, math, random, statistics, zipfile, urllib.request, shutil
 import networkx as nx
+from itertools import accumulate
 
 from assortatividade import s_min, s_max, s_jaccard, s_dir, calcular_r
 
@@ -149,11 +150,13 @@ def estimar_s_esp(G, attrs, func, n=N_AMOSTRAS):
     g_saida   = [G.out_degree(no) for no in nos]
     g_entrada = [G.in_degree(no) for no in nos]
     cats = [attrs[no] for no in nos]
+       # somas acumuladas calculadas uma vez (mesmo resultado de weights=...)
+    acum_s = list(accumulate(g_saida)); acum_e = list(accumulate(g_entrada)); indices = range(len(nos))
     amostras = []; tentativas = 0
     while len(amostras) < n and tentativas < n * 10:
         tentativas += 1
-        i = random.choices(range(len(nos)), weights=g_saida)[0]
-        j = random.choices(range(len(nos)), weights=g_entrada)[0]
+        i = random.choices(indices, cum_weights=acum_s)[0]
+        j = random.choices(indices, cum_weights=acum_e)[0]
         if i != j:
             amostras.append((func(cats[i], cats[j]) + func(cats[j], cats[i])) / 2)
     if not amostras:
