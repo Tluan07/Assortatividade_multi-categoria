@@ -20,6 +20,7 @@ import os, math, random, statistics, zipfile, urllib.request, shutil
 from itertools import combinations
 from collections import defaultdict
 import networkx as nx
+from itertools import accumulate
 
 from assortatividade import s_min, s_max, s_jaccard, s_dir, calcular_r
 
@@ -150,11 +151,13 @@ def estimar_s_esp(G, attrs, func, n=N_AMOSTRAS):
     nos = [no for no in G.nodes() if no in attrs]
     graus = [G.degree(no) for no in nos]
     cats = [attrs[no] for no in nos]
+        # soma acumulada calculada uma vez (mesmo resultado de weights=..., sem refazê-la a cada sorteio)
+    acum = list(accumulate(graus)); indices = range(len(nos))
     amostras = []; tentativas = 0
     while len(amostras) < n and tentativas < n * 10:
         tentativas += 1
-        i = random.choices(range(len(nos)), weights=graus)[0]
-        j = random.choices(range(len(nos)), weights=graus)[0]
+        i = random.choices(indices, cum_weights=acum)[0]
+        j = random.choices(indices, cum_weights=acum)[0]
         if i != j:
             amostras.append((func(cats[i], cats[j]) + func(cats[j], cats[i])) / 2)
     if not amostras:
