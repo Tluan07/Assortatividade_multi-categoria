@@ -15,7 +15,7 @@ import os, re, math, random, statistics, zipfile, urllib.request, shutil
 import networkx as nx
 from itertools import accumulate
 
-from assortatividade import calcular_r
+from assortatividade import calcular_r, momentos_amostra
 
 CAMINHO_BASE = './dados'
 
@@ -170,8 +170,8 @@ def estimar_s_esp(G, attrs, func, n=N_AMOSTRAS):
         if i != j:
             amostras.append((func(cats[i], cats[j]) + func(cats[j], cats[i])) / 2)
     if not amostras:
-        return 0.0, 0.0
-    return statistics.mean(amostras), statistics.stdev(amostras) if len(amostras) > 1 else 0.0
+        return 0.0, 0.0, 0.0, 3.0
+    return momentos_amostra(amostras)  # (média, dp, assimetria, curtose)
 
 
 def analisar_topico(nome, pasta):
@@ -197,8 +197,8 @@ def analisar_topico(nome, pasta):
     print(f"  {'─'*70}")
     res = {}
     S_obs = calcular_s_obs(G, attrs, s_fuzzy)
-    S_esp, dp = estimar_s_esp(G, attrs, s_fuzzy)
-    r, ic_inf, ic_sup = calcular_r(S_obs, S_esp, dp, N_AMOSTRAS)
+    S_esp, dp, g1, b2 = estimar_s_esp(G, attrs, s_fuzzy)
+    r, ic_inf, ic_sup = calcular_r(S_obs, S_esp, dp, N_AMOSTRAS, g1, b2)
     print(f"  {'s_fuzzy':<12} {S_obs:>7.4f} {S_esp:>7.4f} {dp:>8.4f} {r:>8.4f} {ic_inf:>8.4f} {ic_sup:>8.4f}")
     res['s_fuzzy'] = {'S_obs': S_obs, 'S_esp': S_esp, 'dp': dp, 'r_desvio': r, 'ic_inf': ic_inf, 'ic_sup': ic_sup}
     return res
