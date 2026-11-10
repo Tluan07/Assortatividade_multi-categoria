@@ -41,7 +41,7 @@ from itertools import combinations
 import pandas as pd
 import networkx as nx
 
-from assortatividade import calcular_r
+from assortatividade import calcular_r, momentos_amostra
 
 # O openpyxl avisa, a cada leitura, que a planilha "não tem estilo padrão".
 # É só ruído (não afeta nenhum dado); silenciamos para não poluir a saída.
@@ -320,8 +320,8 @@ def estimar_s_esp(G, attrs, func, n=N_AMOSTRAS):
         if i != j:
             amostras.append(func(cats[i], cats[j]))
     if not amostras:
-        return 0.0, 0.0
-    return statistics.mean(amostras), statistics.stdev(amostras) if len(amostras) > 1 else 0.0
+        return 0.0, 0.0, 0.0, 3.0
+    return momentos_amostra(amostras)  # (média, dp, assimetria, curtose)
 
 
 # -- Análise por mandato ------------------------------------------------------
@@ -332,8 +332,8 @@ def analisar_mandato(pasta, rotulo, anos, max_autores, attrs_todos):
         return None
 
     S_obs = calcular_s_obs(G, attrs, s_fuzzy)
-    S_esp, dp = estimar_s_esp(G, attrs, s_fuzzy)
-    r, ic_inf, ic_sup = calcular_r(S_obs, S_esp, dp, N_AMOSTRAS)
+    S_esp, dp, g1, b2 = estimar_s_esp(G, attrs, s_fuzzy)
+    r, ic_inf, ic_sup = calcular_r(S_obs, S_esp, dp, N_AMOSTRAS, g1, b2)
 
     print(f"\n{'='*78}")
     print(f"  Câmara dos Deputados — {rotulo}")
