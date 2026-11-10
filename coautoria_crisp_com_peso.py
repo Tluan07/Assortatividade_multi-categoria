@@ -19,7 +19,7 @@ from itertools import combinations
 import networkx as nx
 from itertools import accumulate
 
-from assortatividade import calcular_r
+from assortatividade import calcular_r, momentos_amostra
 
 CAMINHO_BASE = './dados'
 
@@ -218,8 +218,8 @@ def estimar_s_esp(G, attrs, func, n=N_AMOSTRAS):
         if i != j:
             amostras.append((func(cats[i], cats[j]) + func(cats[j], cats[i])) / 2)
     if not amostras:
-        return 0.0, 0.0
-    return statistics.mean(amostras), statistics.stdev(amostras) if len(amostras) > 1 else 0.0
+        return 0.0, 0.0, 0.0, 3.0
+    return momentos_amostra(amostras)  # (média, dp, assimetria, curtose)
 
 
 # -- Impressão de tabela (S_obs, S_esp, dp, r, IC) ---------------------------
@@ -230,9 +230,9 @@ def imprimir_tabela(G, attrs, titulo):
     resultado = {}
     for nome_f, func in SIM_FUNCS:
         S_obs = calcular_s_obs(G, attrs, func)
-        S_esp, dp_mc = estimar_s_esp(G, attrs, func)
+        S_esp, dp_mc, g1, b2 = estimar_s_esp(G, attrs, func)
         dp = math.sqrt(S_esp * (1 - S_esp)) if nome_f in ('s_min', 's_max') else dp_mc
-        r, ic_inf, ic_sup = calcular_r(S_obs, S_esp, dp, N_AMOSTRAS)
+        r, ic_inf, ic_sup = calcular_r(S_obs, S_esp, dp, N_AMOSTRAS, g1, b2, binaria=(nome_f in ('s_min', 's_max')))
         print(f"  {nome_f:<12}{S_obs:>8.4f}{S_esp:>8.4f}{dp:>9.4f}{r:>9.4f}{ic_inf:>9.4f}{ic_sup:>9.4f}")
         resultado[nome_f] = {'S_obs': S_obs, 'S_esp': S_esp, 'dp': dp,
                               'r_desvio': r, 'ic_inf': ic_inf, 'ic_sup': ic_sup}
