@@ -294,7 +294,7 @@ def calcular_s_obs(G, attrs, func):
     for u, v, d in G.edges(data=True):
         if u not in attrs or v not in attrs: continue
         w = d.get('peso', 1)
-        total_sim += w * func(attrs[u], attrs[v])
+        total_sim += w * (func(attrs[u], attrs[v])+func(attrs[v], attrs[u]))/2
         total_peso += w
     return total_sim / total_peso if total_peso else 0.0
 
