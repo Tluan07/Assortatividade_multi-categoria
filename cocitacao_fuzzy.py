@@ -148,7 +148,7 @@ def construir_rede(artigos):
 
 
 def calcular_s_obs(G, attrs, func):
-    sims = [(func(attrs[u], attrs[v]) + func(attrs[v], attrs[u])) / 2
+    sims = [func(attrs[u], attrs[v]) 
             for u, v in G.edges() if u in attrs and v in attrs]
     return statistics.mean(sims) if sims else 0.0
 
@@ -168,7 +168,7 @@ def estimar_s_esp(G, attrs, func, n=N_AMOSTRAS):
         i = random.choices(indices, cum_weights=acum_s)[0]
         j = random.choices(indices, cum_weights=acum_e)[0]
         if i != j:
-            amostras.append((func(cats[i], cats[j]) + func(cats[j], cats[i])) / 2)
+            amostras.append(func(cats[i], cats[j])
     if not amostras:
         return 0.0, 0.0, 0.0, 3.0
     return momentos_amostra(amostras)  # (média, dp, assimetria, curtose)
